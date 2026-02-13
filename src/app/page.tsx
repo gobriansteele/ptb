@@ -14,19 +14,22 @@ export default function Home() {
     e.preventDefault();
     setStatus("sending");
 
-    // TODO: Re-enable API call when ready to send real emails
-    // const res = await fetch("/api/contact", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ name, email, message }),
-    // });
-    // if (!res.ok) throw new Error("Failed to send");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
 
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setStatus("sent");
-    setName("");
-    setEmail("");
-    setMessage("");
+      if (!res.ok) throw new Error("Failed to send");
+
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
