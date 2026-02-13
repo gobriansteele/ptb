@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: "Phil The Builder And Friends <onboarding@resend.dev>",
+      from: `Phil The Builder And Friends <hello@${process.env.RESEND_SENDING_DOMAIN}>`,
       to: process.env.CONTACT_EMAIL!,
       subject: `New contact from ${name}`,
       replyTo: email,
