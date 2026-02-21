@@ -1,58 +1,11 @@
 "use client";
 
-const featuredServices = [
-  {
-    name: "Flooring & Tile Work",
-    icon: "🏠",
-    description:
-      "Hardwood, laminate, vinyl plank, tile repair, kitchen backsplashes, shower surrounds, and bathroom tile. This is what Phil is known for.",
-  },
-  {
-    name: "Landscaping & Outdoor",
-    icon: "🌳",
-    description:
-      "Patios, walkways, retaining walls, sod, deck repair, fences, gutter cleaning, and pressure washing.",
-  },
-];
+import { FeaturedServiceCard } from "@/components/FeaturedServiceCard";
+import { ServiceCard } from "@/components/ServiceCard";
+import { services, serviceAreas } from "@/data/services";
 
-const allServices = [
-  {
-    name: "General Repairs",
-    icon: "🔧",
-    keywords: "Drywall, doors, locks, caulking, weatherstripping, doorbells",
-  },
-  {
-    name: "Minor Plumbing",
-    icon: "🚰",
-    keywords: "Faucets, toilets, drains, showerheads, garbage disposals",
-  },
-  {
-    name: "Minor Electrical",
-    icon: "💡",
-    keywords:
-      "Light fixtures, ceiling fans, outlets, switches, dimmers, recessed lighting",
-  },
-  {
-    name: "Carpentry & Woodwork",
-    icon: "🪵",
-    keywords:
-      "Shelving, trim, molding, railings, cabinets, door frames, wood rot repair",
-  },
-  {
-    name: "Assembly & Installation",
-    icon: "📦",
-    keywords:
-      "TV mounting, curtain rods, blinds, mirrors, bathroom hardware",
-  },
-  {
-    name: "Seasonal & More",
-    icon: "📅",
-    keywords:
-      "Lawn care, snow removal, holiday lights, junk removal, aging-in-place modifications, pre-sale touch-ups, rental turnover",
-  },
-];
-
-const serviceAreas = ["South Minneapolis", "Richfield", "Bloomington", "Edina"];
+const featuredServices = services.filter((s) => s.isTopService);
+const allServices = services.filter((s) => !s.isTopService);
 
 export default function Services() {
   return (
@@ -84,18 +37,7 @@ export default function Services() {
 
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {featuredServices.map((service) => (
-              <div
-                key={service.name}
-                className="bg-gold/10 border-2 border-gold/50 rounded-lg p-8 hover:bg-gold/20 transition-colors"
-              >
-                <div className="text-6xl mb-4">{service.icon}</div>
-                <h3 className="font-bold text-xl text-gold uppercase tracking-wider mb-3">
-                  {service.name}
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
+              <FeaturedServiceCard key={service.name} service={service} size="lg" />
             ))}
           </div>
 
@@ -106,22 +48,7 @@ export default function Services() {
             </h3>
             <div className="grid md:grid-cols-2 gap-6">
               {allServices.map((service) => (
-                <div
-                  key={service.name}
-                  className="bg-navy-light/50 border border-gold/20 rounded-lg p-6 hover:border-gold/50 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="text-4xl flex-shrink-0">{service.icon}</span>
-                    <div>
-                      <h4 className="font-semibold text-gold text-lg uppercase tracking-wider mb-2">
-                        {service.name}
-                      </h4>
-                      <p className="text-foreground/60 text-sm leading-relaxed">
-                        {service.keywords}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <ServiceCard key={service.name} service={service} size="lg" />
               ))}
             </div>
           </div>
@@ -216,10 +143,10 @@ export default function Services() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-semibold text-gold mb-3">
-                  Do you offer emergency service?
+                  Do you offer free estimates?
                 </h3>
                 <p className="text-foreground/70">
-                  Yes! We respond to urgent situations like branches breaking through windows during storms. Call for details.
+                  Yes! Phil will come to you, assess the project in person, and give you a straight answer — no commitment required before any work begins.
                 </p>
               </div>
 
@@ -228,7 +155,7 @@ export default function Services() {
                   Is there a minimum charge?
                 </h3>
                 <p className="text-foreground/70">
-                  No. We charge only for actual work time in 15-minute increments. No hidden minimums like other contractors charge.
+                  No. Phil charges only for actual work time. Got a quick fix? He&apos;ll come out for a 15-minute job and only charge you for that.
                 </p>
               </div>
 
@@ -237,16 +164,34 @@ export default function Services() {
                   Do you work nights and weekends?
                 </h3>
                 <p className="text-foreground/70">
-                  Yes! We&apos;re available on evenings and weekends to fit your schedule.
+                  Absolutely. Phil works around your schedule — daytime, evenings, and weekends.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-gold mb-3">
-                  What if you can&apos;t do the job?
+                  Do you offer emergency service?
                 </h3>
                 <p className="text-foreground/70">
-                  For jobs outside our scope (major electrical, plumbing, roofing), we work with trusted specialists like Dean&apos;s Electrical and Plumbing. We can handle the coordination.
+                  Yes. If a branch goes through your window at 2 AM during a storm, call Phil.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gold mb-3">
+                  What about larger projects?
+                </h3>
+                <p className="text-foreground/70">
+                  For bigger jobs, Phil provides a detailed written proposal so you know exactly what&apos;s happening, when, and for how much — before any work begins.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gold mb-3">
+                  What if the job is outside your scope?
+                </h3>
+                <p className="text-foreground/70">
+                  For work that falls outside our expertise — like major electrical, plumbing, or roofing — we&apos;ll refer you to trusted local specialists so the job still gets done right.
                 </p>
               </div>
             </div>

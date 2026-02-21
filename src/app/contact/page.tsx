@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { services } from "@/data/services";
 
-const services = [
+const serviceOptions = [
   "Select a service",
-  "Flooring & Tile Work",
-  "Landscaping & Outdoor",
-  "General Repairs",
-  "Minor Plumbing",
-  "Minor Electrical",
-  "Carpentry & Woodwork",
-  "Assembly & Installation",
-  "Seasonal & More",
+  ...services.map((s) => s.name),
   "Other (I'll describe it)",
 ];
 
@@ -288,9 +282,9 @@ export default function Contact() {
                   }
                   className="w-full rounded border border-gold/20 bg-navy px-3 py-2.5 text-sm text-foreground outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/30 transition-colors cursor-pointer"
                 >
-                  {services.map((service) => (
-                    <option key={service} value={service} disabled={service === "Select a service"}>
-                      {service}
+                  {serviceOptions.map((option) => (
+                    <option key={option} value={option} disabled={option === "Select a service"}>
+                      {option}
                     </option>
                   ))}
                 </select>

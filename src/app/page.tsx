@@ -1,38 +1,11 @@
 "use client";
 
-const topServices = [
-  { name: "Flooring & Tile Work", icon: "🏠", highlight: true },
-  { name: "Landscaping & Outdoor", icon: "🌳", highlight: true },
-  { name: "General Repairs", icon: "🔧" },
-  { name: "Minor Plumbing", icon: "🚰" },
-  { name: "Minor Electrical", icon: "💡" },
-  { name: "Carpentry & Woodwork", icon: "🪵" },
-  { name: "Assembly & Installation", icon: "📦" },
-  { name: "Seasonal & More", icon: "📅" },
-];
-
-const testimonials = [
-  {
-    text: "Phil did excellent work on our bathroom. Very professional and clean. Highly recommend!",
-    name: "Sarah M.",
-    neighborhood: "South Minneapolis",
-  },
-  {
-    text: "Fixed my leaky faucet quickly and didn't overcharge. Great guy, fair prices!",
-    name: "Mike R.",
-    neighborhood: "Richfield",
-  },
-  {
-    text: "Phil showed up on time, did quality work, and actually cleaned up after himself. Rare!",
-    name: "Jennifer K.",
-    neighborhood: "Edina",
-  },
-];
-
-const serviceAreas = ["South Minneapolis", "Richfield", "Bloomington", "Edina"];
+import { FeaturedServiceCard } from "@/components/FeaturedServiceCard";
+import { ServiceCard } from "@/components/ServiceCard";
+import { services, serviceAreas } from "@/data/services";
+import { testimonials } from "@/data/testimonials";
 
 export default function Home() {
-
   return (
     <div className="min-h-screen bg-background">
       <main className="w-full">
@@ -87,59 +60,19 @@ export default function Home() {
             <div className="mx-auto w-16 h-px bg-gold" />
           </div>
 
-          {/* Featured Specialties */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {topServices.filter((s) => s.highlight).map((service) => (
-              <div
-                key={service.name}
-                className="bg-gold/10 border-2 border-gold/50 rounded-lg p-6 hover:bg-gold/20 transition-colors"
-              >
-                <div className="text-5xl mb-3">{service.icon}</div>
-                <h3 className="font-bold text-lg text-gold uppercase tracking-wider mb-2">
-                  {service.name}
-                </h3>
-                <p className="text-foreground/70 text-sm">
-                  {service.name === "Flooring & Tile Work"
-                    ? "Hardwood, laminate, vinyl plank, tile repair, kitchen backsplashes, shower surrounds, and bathroom tile. This is what Phil is known for."
-                    : "Patios, walkways, retaining walls, sod, deck repair, fences, gutter cleaning, and pressure washing."}
-                </p>
-              </div>
+            {services.filter((s) => s.isTopService).map((service) => (
+              <FeaturedServiceCard key={service.name} service={service} />
             ))}
           </div>
 
-          {/* All Services Grid */}
           <div className="mb-12">
             <h3 className="text-xl font-bold text-foreground uppercase tracking-widest mb-6">
               All Services
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {topServices.filter((s) => !s.highlight).map((service) => (
-                <div
-                  key={service.name}
-                  className="bg-navy-light/50 border border-gold/20 rounded-lg p-4 hover:border-gold/50 transition-colors"
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">{service.icon}</span>
-                    <div>
-                      <h4 className="font-semibold text-gold text-sm uppercase tracking-wider">
-                        {service.name}
-                      </h4>
-                      <p className="text-foreground/60 text-xs mt-1">
-                        {service.name === "General Repairs"
-                          ? "Drywall, doors, locks, caulking, weatherstripping, doorbells"
-                          : service.name === "Minor Plumbing"
-                          ? "Faucets, toilets, drains, showerheads, garbage disposals"
-                          : service.name === "Minor Electrical"
-                          ? "Light fixtures, ceiling fans, outlets, switches, dimmers, recessed lighting"
-                          : service.name === "Carpentry & Woodwork"
-                          ? "Shelving, trim, molding, railings, cabinets, door frames, wood rot repair"
-                          : service.name === "Assembly & Installation"
-                          ? "TV mounting, curtain rods, blinds, mirrors, bathroom hardware"
-                          : "Lawn care, snow removal, holiday lights, junk removal, aging-in-place modifications, pre-sale touch-ups, rental turnover"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              {services.filter((s) => !s.isTopService).map((service) => (
+                <ServiceCard key={service.name} service={service} />
               ))}
             </div>
           </div>
