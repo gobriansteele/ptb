@@ -1,7 +1,7 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { testimonials } from "@/data/testimonials";
 
 function ReviewCard({ t }: { t: (typeof testimonials)[0] }) {
@@ -45,18 +45,14 @@ function ReviewCard({ t }: { t: (typeof testimonials)[0] }) {
 export function TestimonialsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
-    setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
-    return () => { emblaApi.off("select", onSelect); };
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi]);
 
   return (
@@ -76,7 +72,7 @@ export function TestimonialsCarousel() {
         </div>
 
         <button
-          onClick={scrollPrev}
+          onClick={() => emblaApi?.scrollPrev()}
           className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full border border-gold/40 text-gold cursor-pointer hover:bg-gold hover:border-gold hover:text-navy transition-all duration-200"
           aria-label="Previous review"
         >
@@ -85,7 +81,7 @@ export function TestimonialsCarousel() {
           </svg>
         </button>
         <button
-          onClick={scrollNext}
+          onClick={() => emblaApi?.scrollNext()}
           className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full border border-gold/40 text-gold cursor-pointer hover:bg-gold hover:border-gold hover:text-navy transition-all duration-200"
           aria-label="Next review"
         >
@@ -96,10 +92,10 @@ export function TestimonialsCarousel() {
       </div>
 
       <div className="flex justify-center gap-2 mt-6">
-        {scrollSnaps.map((_, i) => (
+        {testimonials.map((t, i) => (
           <button
-            key={i}
-            onClick={() => scrollTo(i)}
+            key={t.name}
+            onClick={() => emblaApi?.scrollTo(i)}
             className={`w-2 h-2 rounded-full cursor-pointer transition-colors hover:bg-gold/70 ${
               i === selectedIndex ? "bg-gold" : "bg-gold/30"
             }`}
