@@ -2,8 +2,8 @@
 
 import { FeaturedServiceCard } from "@/components/FeaturedServiceCard";
 import { ServiceCard } from "@/components/ServiceCard";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { services, serviceAreas } from "@/data/services";
-import { testimonials } from "@/data/testimonials";
 
 export default function Home() {
   return (
@@ -111,26 +111,7 @@ export default function Home() {
               </h2>
               <div className="mx-auto w-16 h-px bg-gold" />
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.name}
-                  className="bg-navy/50 border border-gold/20 rounded-lg p-6"
-                >
-                  <p className="text-foreground/80 mb-4 italic">
-                    &quot;{testimonial.text}&quot;
-                  </p>
-                  <div className="border-t border-gold/20 pt-4">
-                    <p className="font-semibold text-gold text-sm uppercase">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-foreground/60 text-xs">
-                      {testimonial.neighborhood}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <TestimonialsCarousel />
           </div>
         </section>
 
