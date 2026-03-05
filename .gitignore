@@ -47,3 +47,6 @@ next-env.d.ts
 # tooling
 .claude/
 .playwright-mcp/
+
+# raw photos (originals before resizing)
+/photos-raw/
