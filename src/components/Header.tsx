@@ -36,6 +36,12 @@ export default function Header() {
             Services
           </Link>
           <Link
+            href="/gallery"
+            className="text-sm uppercase tracking-wider text-foreground hover:text-gold transition-colors"
+          >
+            Gallery
+          </Link>
+          <Link
             href="/about"
             className="text-sm uppercase tracking-wider text-foreground hover:text-gold transition-colors"
           >
@@ -88,6 +94,13 @@ export default function Header() {
             onClick={closeMenu}
           >
             Services
+          </Link>
+          <Link
+            href="/gallery"
+            className="block text-sm uppercase tracking-wider text-foreground hover:text-gold transition-colors"
+            onClick={closeMenu}
+          >
+            Gallery
           </Link>
           <Link
             href="/about"
