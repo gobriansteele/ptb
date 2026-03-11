@@ -2,10 +2,11 @@
 
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
+import type { GalleryImage } from "@/data/gallery";
 
 type LightboxProps = {
   serviceName: string;
-  images: string[];
+  images: GalleryImage[];
   currentIndex: number;
   onClose: () => void;
   onPrev: () => void;
@@ -37,6 +38,8 @@ export default function Lightbox({
       document.body.style.overflow = "";
     };
   }, [handleKeyDown]);
+
+  const currentImage = images[currentIndex];
 
   return (
     <div
@@ -75,13 +78,14 @@ export default function Lightbox({
         onClick={(e) => e.stopPropagation()}
       >
         <Image
-          src={images[currentIndex]}
+          src={currentImage.src}
           alt={`${serviceName} - photo ${currentIndex + 1}`}
           fill
           className="object-contain rounded-lg"
           sizes="(max-width: 768px) 100vw, 896px"
           priority
         />
+
       </div>
 
       {/* Next button */}
@@ -96,9 +100,16 @@ export default function Lightbox({
         ›
       </button>
 
-      {/* Service name */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-sm uppercase tracking-widest">
-        {serviceName}
+      {/* Bottom labels */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+        {currentImage.label && (
+          <span className="text-white/70 text-sm font-semibold uppercase tracking-widest">
+            {currentImage.label}
+          </span>
+        )}
+        <span className="text-white/50 text-sm uppercase tracking-widest">
+          {serviceName}
+        </span>
       </div>
     </div>
   );

@@ -6,16 +6,18 @@ import { services } from "@/data/services";
 import { galleryCategories } from "@/data/gallery";
 import Lightbox from "@/components/Lightbox";
 
-const categoryMap = new Map(
-  galleryCategories.map((c) => [c.slug, c])
-);
+const serviceMap = new Map(services.map((s) => [s.slug, s]));
 
-const visibleEntries = services
-  .map((service) => {
-    const category = categoryMap.get(service.slug);
-    return category && !category.isHidden ? { service, category } : null;
+const visibleEntries = galleryCategories
+  .filter((category) => !category.isHidden)
+  .map((category) => {
+    const service = serviceMap.get(category.slug);
+    return service ? { service, category } : null;
   })
-  .filter(Boolean) as { service: (typeof services)[number]; category: (typeof galleryCategories)[number] }[];
+  .filter(Boolean) as {
+  service: (typeof services)[number];
+  category: (typeof galleryCategories)[number];
+}[];
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState<{
@@ -76,7 +78,7 @@ export default function Gallery() {
                 className="group relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 <Image
-                  src={category.images[0]}
+                  src={category.thumbnail}
                   alt={service.name}
                   fill
                   className="object-cover"
